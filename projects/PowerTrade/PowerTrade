@@ -1,0 +1,20 @@
+const MINT_TOKEN_CONTRACT = '0xC57d533c50bC22247d49a368880fb49a1caA39F7';
+const MINT_CLUB_BOND_CONTRACT = '0xC57d533c50bC22247d49a368880fb49a1caA39F7';
+
+async function tvl(api) {
+  const collateralBalance = await api.call({
+    abi: 'erc20:balanceOf',
+    target: MINT_TOKEN_CONTRACT,
+    params: [MINT_CLUB_BOND_CONTRACT],
+  });
+
+  api.add(MINT_TOKEN_CONTRACT, collateralBalance)
+}
+
+module.exports = {
+  methodology: 'counts the number of MINT tokens in the Club Bonding contract.',
+  start: 1000235,
+  bsc: {
+    tvl,
+  }
+}; 
